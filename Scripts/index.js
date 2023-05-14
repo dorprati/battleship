@@ -1,8 +1,11 @@
-function Menu(){
-let size =document.querySelector('value')
-console.log(size)
-Size(size);
 
+function Menu() {
+   let size=document.getElementById('#create');
+   size=document.addEventListener('click',createTable)
+
+
+  
 }
+
 
 Menu();
