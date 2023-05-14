@@ -1,0 +1,51 @@
+h1{
+padding-left: 10em;
+font-size: 50px;
+}
+#board-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    overflow-x: auto;
+    background-color: #ccc;
+  }
+  
+  #board {
+    border-collapse: collapse;
+    border: 1px solid #000;
+  }
+  
+  #board td {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #000;
+    background-color: #fff;
+    cursor: pointer;
+  }
+  
+  #board td.hit {
+    background-color: #ff0000;
+  }
+  
+  #board td.miss {
+    background-color: #00ffff;
+  }
+  
+  #info {
+    text-align: center;
+  }
+  
+  #status {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  #status td {
+    padding: 5px 20px;
+  }
+  
+  .boom {
+    animation: boom 0.5s ease-in-out 1;
+  }
+  
+  @keyframes boom
