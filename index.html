@@ -9,40 +9,59 @@
     <script type="" src="/Scripts/function.js"></script>
     <script src="/Scripts/index.js" defer></script>
     <link rel="stylesheet" href="/Styles/styles.css">
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        td {
+            width: 30px;
+            height: 30px;
+            border: 1px solid black;
+            cursor: pointer;
+        }
+
+        .empty {
+            background-color: gray;
+        }
+
+        .miss {
+            background-color: blue;
+        }
+
+        .hit {
+            background-color: orange;
+        }
+    </style>
 </head>
 
 <body>
-    <div class="container">
-        <div class="left">
-            <h1>Battle Ship</h1>
-            <h2>Choose your grid size: </h2>
 
-            <div>
-                <form id="form1" method="get" action="">
-                    <input type="radio" name="gender" value="10"> 10 * 10
-                    <input type="radio" name="gender" value="11"> 11 * 11
-                    <br />
-                    <input type="radio" name="gender" value="12"> 12 * 12
-                    <input id="size" type="radio" name="gender" value="13"> 13 * 13<br />
-                    <input id="size" type="radio" name="gender" value="14"> 14 * 14
-                    <input id="size" type="radio" name="gender" value="15"> 15 * 15<br />
-                </form>
-
-            </div>
-            <br><br>
-            <div>
-                <form id="form2" method="get" action="">
-                    <p>Battle ship 2: <input type="number"></p>
-                    <p>Battle ship 3: <input type="number"></p>
-                    <p>Battle ship 4: <input type="number"></p>
-                    <p>Battle ship 5: <input type="number"></p>
-                    <button id="create">Start game</button>
-                </form>
-            </div>
-            <div id="table-container"></div>
-        </div>
-    </div>
-
+    <h1>Battleship Game</h1>
+    <label for="board-size">Select board size:</label>
+    <select id="board-size">
+        <option value="choice" selected>Choice</option>
+        <option value="10">10x10</option>
+        <option value="11">11x11</option>
+        <option value="12">12x12</option>
+        <option value="13">13x13</option>
+        <option value="14">14x14</option>
+        <option value="15">15x15</option>
+    </select>
+    <br><br>
+    <label for="ship-2">Number of 2-cell ships:</label>
+    <input type="number" id="ship-2" min="1" max="10">
+    <br><br>
+    <label for="ship-3">Number of 3-cell ships:</label>
+    <input type="number" id="ship-3" min="1" max="10">
+    <br><br>
+    <label for="ship-4">Number of 4-cell ships:</label>
+    <input type="number" id="ship-4" min="1" max="10">
+    <br><br>
+    <label for="ship-5">Number of 5-cell ships:</label>
+    <input type="number" id="ship-5" min="1" max="10">
+    <br><br>
+    <button onclick="event.preventDefault(); Manu()">Start Game</button>
 
 </body>
 
