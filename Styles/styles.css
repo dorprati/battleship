@@ -1,28 +1,21 @@
-#game-board {
+#table-container {
   display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  grid-template-rows: repeat(10, 1fr);
-  gap: 1px;
-  background-color: gray;
-  margin: 0 auto;
-  width: 300px;
-  height: 300px;
+  grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
+  grid-gap: 4px;
+  background-color: #e8e8e8;
+  padding: 20px;
+  float: right;
+  margin-top: -20em;
 }
 
-#game-board > div {
-  background-color: blue;
-  transition: background-color 0.3s ease;
+td {
+  width: 40px;
+  height: 40px;
+  background-color: #dcdcdc;
 }
 
-#game-board > div.ship {
-  background-color: orange;
-}
-
-#message {
-  text-align: center;
-  margin: 10px 0;
-}
-
-#ships-left {
-  text-align: center;
+button {
+  display: block;
+  margin-top: 20px;
+  clear: both;
 }
