@@ -1,21 +1,111 @@
-#table-container {
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
-  grid-gap: 4px;
-  background-color: #e8e8e8;
-  padding: 20px;
-  float: right;
-  margin-top: -20em;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f2f2f2;
+}
+
+h1 {
+  grid-column: 1 / 3;
+  text-align: center;
+  margin-bottom: 20px;
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+form {
+  grid-column: 1;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.score-table {
+  grid-column: 2;
+  margin-top: 10px;
+}
+
+.score-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.score-table th,
+.score-table td {
+  padding: 10px;
+  text-align: center;
+}
+
+.score-table th {
+  background-color: #333;
+  color: #fff;
+}
+
+.score-table tr:nth-child(even) {
+  background-color: #f2f2f2;
 }
 
 td {
-  width: 40px;
-  height: 40px;
-  background-color: #dcdcdc;
+  width: 30px;
+  height: 30px;
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+.gray-board td {
+  background-color: #ccc;
+  cursor: pointer;
+}
+
+.clicked {
+  background-color: blue;
+}
+
+table {
+  grid-column: 2;
+   width: 100%;
+   border-collapse: collapse;
+   background-color: #ffffff3a;
+   padding: 20px;
+   border-radius: 10px;
+   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+
+select,
+input[type="number"] {
+   width: 30%;
+   padding: 5px;
+   border: 1px solid #ccc;
+   border-radius: 4px;
+   font-family: Arial, sans-serif;
 }
 
 button {
-  display: block;
-  margin-top: 20px;
-  clear: both;
+   display: block;
+   margin-top: 10px;
+   padding: 10px;
+   border: none;
+   border-radius: 4px;
+   background-color: #4caf50;
+   color: #fff;
+   font-family: Arial, sans-serif;
+   cursor: pointer;
+   
+}
+
+/* Add the following CSS rule */
+.gray-board.clicked {
+  background-color: blue;
 }

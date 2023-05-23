@@ -1,111 +1,97 @@
-function generateBoard() {
-    var previousTable = document.querySelector('table');
-    if (previousTable) {
-      previousTable.parentNode.removeChild(previousTable);
-    }
+function generateGameTable(boardSize) {
+    var gameTable = document.getElementById('game-table');
+    gameTable.innerHTML = '';
+    gameTable.classList.add('gray-board'); // Add gray-board class
   
-    var boardSize = parseInt(document.getElementById('board-size').value);
-    var board = [];
-    var table = document.createElement('table');
     for (var i = 0; i < boardSize; i++) {
       var row = document.createElement('tr');
-      var rowData = [];
       for (var j = 0; j < boardSize; j++) {
         var cell = document.createElement('td');
-        cell.classList.add('empty');
-        cell.addEventListener('click', handleCellClick);
         row.appendChild(cell);
-        rowData.push(cell);
       }
-      table.appendChild(row);
-      board.push(rowData);
+      gameTable.appendChild(row);
     }
-    document.body.appendChild(table);
   }
   
-  function placeShips() {
-    var boardSize = parseInt(document.getElementById('board-size').value);
-    var shipCounts = {
-      2: parseInt(document.getElementById('ship-2').value),
-      3: parseInt(document.getElementById('ship-3').value),
-      4: parseInt(document.getElementById('ship-4').value),
-      5: parseInt(document.getElementById('ship-5').value)
-    };
+  function generateBattleships(boardSize, ship2Count, ship3Count, ship4Count, ship5Count) {
+    var slots = document.querySelectorAll('#game-table td');
+    slots.forEach(function (slot) {
+      slot.classList.remove('battleship', 'clicked');
+      slot.style.backgroundColor = '';
+    });
   
-    var board = document.getElementsByTagName('td');
-    for (var size = 5; size >= 2; size--) {
-      for (var count = 0; count < shipCounts[size]; count++) {
-        var orientation = Math.random() < 0.5 ? 'horizontal' : 'vertical';
-        var shipPlaced = false;
-        while (!shipPlaced) {
-          var startCell = getRandomCell();
-          if (canPlaceShip(startCell, size, orientation, boardSize)) {
-            placeShip(startCell, size, orientation, boardSize);
-            shipPlaced = true;
+    var battleshipCount = ship2Count + ship3Count + ship4Count + ship5Count;
+    var battleshipLengths = [];
+    for (var i = 0; i < ship2Count; i++) {
+      battleshipLengths.push(2);
+    }
+    for (var i = 0; i < ship3Count; i++) {
+      battleshipLengths.push(3);
+    }
+    for (var i = 0; i < ship4Count; i++) {
+      battleshipLengths.push(4);
+    }
+    for (var i = 0; i < ship5Count; i++) {
+      battleshipLengths.push(5);
+    }
+    var directions = ['horizontal', 'vertical'];
+
+  battleshipLengths.forEach(function (length) {
+    var direction = directions[Math.floor(Math.random() * directions.length)];
+    var isPlaced = false;
+
+    while (!isPlaced) {
+      var randomIndex = Math.floor(Math.random() * slots.length);
+      var startSlot = slots[randomIndex];
+      var startRowIndex = Math.floor(randomIndex / boardSize);
+      var startColIndex = randomIndex % boardSize;
+
+      if (direction === 'horizontal') {
+        if (startColIndex + length <= boardSize) {
+          var validPlacement = true;
+          for (var i = 0; i < length; i++) {
+            var slotIndex = randomIndex + i;
+            if (slots[slotIndex].classList.contains('battleship') ||
+              (startRowIndex > 0 && slots[slotIndex - boardSize].classList.contains('battleship')) ||
+              (startRowIndex < boardSize - 1 && slots[slotIndex + boardSize].classList.contains('battleship')) ||
+              (startColIndex > 0 && slots[slotIndex - 1].classList.contains('battleship')) ||
+              (startColIndex + length < boardSize && slots[slotIndex + 1].classList.contains('battleship'))) {
+              validPlacement = false;
+              break;
+            }
+          }
+          if (validPlacement) {
+            for (var i = 0; i < length; i++) {
+              var slotIndex = randomIndex + i;
+              slots[slotIndex].classList.add('battleship');
+            }
+            isPlaced = true;
+          }
+        }
+      } else if (direction === 'vertical') {
+        if (startRowIndex + length <= boardSize) {
+          var validPlacement = true;
+          for (var i = 0; i < length; i++) {
+            var slotIndex = randomIndex + i * boardSize;
+            if (slots[slotIndex].classList.contains('battleship') ||
+              (startRowIndex > 0 && slots[slotIndex - boardSize].classList.contains('battleship')) ||
+              (startRowIndex + length < boardSize && slots[slotIndex + boardSize].classList.contains('battleship')) ||
+              (startColIndex > 0 && slots[slotIndex - 1].classList.contains('battleship')) ||
+              (startColIndex < boardSize - 1 && slots[slotIndex + 1].classList.contains('battleship'))) {
+              validPlacement = false;
+              break;
+            }
+          }
+
+          if (validPlacement) {
+            for (var i = 0; i < length; i++) {
+              var slotIndex = randomIndex + i * boardSize;
+              slots[slotIndex].classList.add('battleship');
+            }
+            isPlaced = true;
           }
         }
       }
     }
-  }
-  
-  function getRandomCell() {
-    var board = document.getElementsByTagName('td');
-    var randomIndex = Math.floor(Math.random() * board.length);
-    return board[randomIndex];
-  }
-  
-  function canPlaceShip(startCell, size, orientation, boardSize) {
-    var board = document.getElementsByTagName('td');
-    var startIndex = Array.prototype.indexOf.call(board, startCell);
-    var endIndex;
-  
-    if (orientation === 'horizontal') {
-      endIndex = startIndex + size - 1;
-      if (endIndex % boardSize < startIndex % boardSize) {
-        // Ship goes beyond the board boundary
-        return false;
-      }
-    } else {
-      endIndex = startIndex + (size - 1) * boardSize;
-      if (endIndex >= board.length) {
-        // Ship goes beyond the board boundary
-        return false;
-      }
-    }
-    for (var i = startIndex; i <= endIndex; i++) {
-    if (board[i].classList.contains('occupied')) {
-      // Overlapping with another ship
-      return false;
-    }
-  }
-
-  return true;
-}
-
-function placeShip(startCell, size, orientation, boardSize) {
-  var board = document.getElementsByTagName('td');
-  var startIndex = Array.prototype.indexOf.call(board, startCell);
-  var endIndex;
-
-  if (orientation === 'horizontal') {
-    endIndex = startIndex + size - 1;
-    for (var i = startIndex; i <= endIndex; i++) {
-      board[i].classList.add('occupied');
-    }
-  } else {
-    endIndex = startIndex + (size - 1) * boardSize;
-    for (var i = startIndex; i <= endIndex; i += boardSize) {
-      board[i].classList.add('occupied');
-    }
-  }
-}
-
-function handleCellClick(event) {
-  var cell = event.target;
-  if (cell.classList.contains('occupied')) {
-    cell.classList.remove('occupied');
-    cell.classList.add('hit');
-  } else {
-    cell.classList.add('miss');
-  }
+  });
 }

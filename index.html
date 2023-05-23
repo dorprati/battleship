@@ -9,60 +9,65 @@
     <script type="" src="/Scripts/function.js"></script>
     <script src="/Scripts/index.js" defer></script>
     <link rel="stylesheet" href="/Styles/styles.css">
-    <style>
-        table {
-            border-collapse: collapse;
-        }
 
-        td {
-            width: 30px;
-            height: 30px;
-            border: 1px solid black;
-            cursor: pointer;
-        }
-
-        .empty {
-            background-color: gray;
-        }
-
-        .miss {
-            background-color: blue;
-        }
-
-        .hit {
-            background-color: orange;
-        }
-    </style>
 </head>
 
 <body>
-
     <h1>Battleship Game</h1>
-    <label for="board-size">Select board size:</label>
-    <select id="board-size">
-        <option value="choice" selected>Choice</option>
-        <option value="10">10x10</option>
-        <option value="11">11x11</option>
-        <option value="12">12x12</option>
-        <option value="13">13x13</option>
-        <option value="14">14x14</option>
-        <option value="15">15x15</option>
-    </select>
-    <br><br>
-    <label for="ship-2">Number of 2-cell ships:</label>
-    <input type="number" id="ship-2" min="1" max="10">
-    <br><br>
-    <label for="ship-3">Number of 3-cell ships:</label>
-    <input type="number" id="ship-3" min="1" max="10">
-    <br><br>
-    <label for="ship-4">Number of 4-cell ships:</label>
-    <input type="number" id="ship-4" min="1" max="10">
-    <br><br>
-    <label for="ship-5">Number of 5-cell ships:</label>
-    <input type="number" id="ship-5" min="1" max="10">
-    <br><br>
-    <button onclick="event.preventDefault(); Manu()">Start Game</button>
+    <form id="game-form">
+        <label for="board-size">Select board size:</label>
+        <select id="board-size">
+            <option value="choice" selected disabled>Choice</option>
+            <option value="10">10x10</option>
+            <option value="11">11x11</option>
+            <option value="12">12x12</option>
+            <option value="13">13x13</option>
+            <option value="14">14x14</option>
+            <option value="15">15x15</option>
+        </select>
 
+
+        <br><br>
+        <label for="ship-2">Number of 2-cell ships:</label>
+        <input type="number" id="ship-2" min="1" max="10">
+        <br><br>
+        <label for="ship-3">Number of 3-cell ships:</label>
+        <input type="number" id="ship-3" min="1" max="10">
+        <br><br>
+        <label for="ship-4">Number of 4-cell ships:</label>
+        <input type="number" id="ship-4" min="1" max="10">
+        <br><br>
+        <label for="ship-5">Number of 5-cell ships:</label>
+        <input type="number" id="ship-5" min="1" max="10">
+        <br><br>
+        <button type="submit">Start Game</button>
+    </form>
+    <div class="score-table">
+        <table>
+            <tr>
+                <th>Ship</th>
+                <th>Score</th>
+            </tr>
+            <tr>
+                <td id="ship-2">ship-2</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td id="ship-3">ship-3</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td id="ship-4">ship-4</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td id="ship-5">ship-5</td>
+                <td>0</td>
+            </tr>
+        </table>
+    </div>
+
+    <table id="game-table"></table>
 </body>
 
 
