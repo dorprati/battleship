@@ -17,16 +17,14 @@
     <form id="game-form">
         <label for="board-size">Select board size:</label>
         <select id="board-size">
-            <option value="choice" selected disabled>Choice</option>
-            <option value="10">10x10</option>
-            <option value="11">11x11</option>
-            <option value="12">12x12</option>
-            <option value="13">13x13</option>
-            <option value="14">14x14</option>
-            <option value="15">15x15</option>
+          <option value="choice" selected disabled>Choice</option>
+          <option value="10">10x10</option>
+          <option value="11">11x11</option>
+          <option value="12">12x12</option>
+          <option value="13">13x13</option>
+          <option value="14">14x14</option>
+          <option value="15">15x15</option>
         </select>
-
-
         <br><br>
         <label for="ship-2">Number of 2-cell ships:</label>
         <input type="number" id="ship-2" min="1" max="10">
@@ -41,33 +39,32 @@
         <input type="number" id="ship-5" min="1" max="10">
         <br><br>
         <button type="submit">Start Game</button>
-    </form>
-    <div class="score-table">
+      </form>
+      <div class="score-table">
         <table>
-            <tr>
-                <th>Ship</th>
-                <th>Score</th>
-            </tr>
-            <tr>
-                <td id="ship-2">ship-2</td>
-                <td>0</td>
-            </tr>
-            <tr>
-                <td id="ship-3">ship-3</td>
-                <td>0</td>
-            </tr>
-            <tr>
-                <td id="ship-4">ship-4</td>
-                <td>0</td>
-            </tr>
-            <tr>
-                <td id="ship-5">ship-5</td>
-                <td>0</td>
-            </tr>
+          <tr>
+            <th>Ship</th>
+            <th>Score</th>
+          </tr>
+          <tr>
+            <td id="score-ship-2">ship-2</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td id="score-ship-3">ship-3</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td id="score-ship-4">ship-4</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td id="score-ship-5">ship-5</td>
+            <td>0</td>
+          </tr>
         </table>
-    </div>
-
-    <table id="game-table"></table>
+      </div>
+      <table id="game-table"></table>
 </body>
 
 
