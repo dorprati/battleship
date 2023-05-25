@@ -109,3 +109,28 @@ button {
 .gray-board.clicked {
   background-color: blue;
 }
+
+#animation {
+  width: 0px; /* Initial width of the image */
+  transition: width 1s; /* Transition property for smooth animation */
+  opacity: 1;
+}
+
+@keyframes growAnimation {
+  0% {
+    width: 0px; /* Initial width of the image */
+    opacity: 1;
+  }
+  100% {
+    width: 200px;
+    opacity: 0; /* Final width of the image */
+  }
+}
+
+
+
+.enlarged {
+  animation: growAnimation 2s;
+}
+
+

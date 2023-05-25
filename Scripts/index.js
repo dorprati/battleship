@@ -39,28 +39,34 @@ function Main() {
     var slot = event.target;
 
     if (slot.classList.contains('battleship')) {
+      var hits = 0;
       if (slot.style.backgroundColor !== 'orange') {
         slot.style.backgroundColor = 'orange';
-
+        battleShipDown()
         var shipSize = parseInt(slot.getAttribute('data-ship-size'));
         var shipId = 'score-ship-' + shipSize;
         var scoreCell = document.getElementById(shipId);
 
+  
         if (scoreCell) {
           var currentScore = parseInt(scoreCell.textContent);
 
+
           if (currentScore > 0) {
-            currentScore--;
             scoreCell.textContent = currentScore.toString();
 
-            if (currentScore === 0) {
+            if (currentScore === 1) 
               // All slots of the ship have been hit
               scoreCell.parentNode.classList.add('score-zero');
+  
+              // Reduce the score by one
+              var score = parseInt(scoreCell.textContent);
+              scoreCell.textContent = (score - 1).toString();
 
               // Check if all ships have been sunk
               var allShipsSunk = checkAllShipsSunk();
-              displayBoomMessage();
-            }
+              
+            
           }
         }
       }
@@ -71,6 +77,7 @@ function Main() {
     }
   }
 }
+
 
 
 Main();
