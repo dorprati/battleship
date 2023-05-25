@@ -22,7 +22,6 @@ function generateBattleships(boardSize, ship2Count, ship3Count, ship4Count, ship
         slot.style.backgroundColor = '';
     });
 
-    var battleshipCount = ship2Count + ship3Count + ship4Count + ship5Count;
     var battleshipLengths = [];
 
     for (var i = 0; i < ship2Count; i++) {
