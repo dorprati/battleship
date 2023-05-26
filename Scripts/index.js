@@ -42,11 +42,15 @@ function Main() {
       var hits = 0;
       if (slot.style.backgroundColor !== 'orange') {
         slot.style.backgroundColor = 'orange';
-        battleShipDown()
+        hits++;
         var shipSize = parseInt(slot.getAttribute('data-ship-size'));
         var shipId = 'score-ship-' + shipSize;
         var scoreCell = document.getElementById(shipId);
-
+        if(hits === shipSize)
+        {
+          battleShipDown()
+          hits=0;
+        }
   
         if (scoreCell) {
           var currentScore = parseInt(scoreCell.textContent);
@@ -55,8 +59,6 @@ function Main() {
           if (currentScore > 0) {
             scoreCell.textContent = currentScore.toString();
 
-            if (currentScore === 1) 
-              // All slots of the ship have been hit
               scoreCell.parentNode.classList.add('score-zero');
   
               // Reduce the score by one

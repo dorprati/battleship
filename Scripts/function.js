@@ -136,3 +136,8 @@ function battleShipDown()
         displayBoomMessage();
      
 }
+
+function showTable() {
+    var table = document.getElementById("myTable");
+    table.style.display = "table";
+}

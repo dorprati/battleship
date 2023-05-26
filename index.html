@@ -38,10 +38,10 @@
         <label for="ship-5">Number of 5-cell ships:</label>
         <input type="number" id="ship-5" min="1" max="10">
         <br><br>
-        <button type="submit">Start Game</button>
+        <button type="submit" onclick="showTable()">Start Game</button>
       </form>
       <div class="score-table">
-        <table>
+        <table id="myTable" style="display: none;">
           <tr>
             <th>Ship</th>
             <th>Score</th>
