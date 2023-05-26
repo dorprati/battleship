@@ -9,7 +9,6 @@ function Main() {
 
   function startGame(event) {
     event.preventDefault();
-
     var boardSize = parseInt(document.getElementById('board-size').value);
     var ship2Count = parseInt(document.getElementById('ship-2').value);
     var ship3Count = parseInt(document.getElementById('ship-3').value);
@@ -25,7 +24,7 @@ function Main() {
       alert('Please select all the required options');
       return;
     }
-
+    showTable();
     generateGameTable(boardSize);
     generateBattleships(boardSize, ship2Count, ship3Count, ship4Count, ship5Count);
     var scoreCells = document.querySelectorAll('.score-table table td:nth-child(2)');
