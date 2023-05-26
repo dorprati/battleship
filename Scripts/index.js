@@ -34,46 +34,48 @@ function Main() {
     scoreCells[2].textContent = ship4Count.toString();
     scoreCells[3].textContent = ship5Count.toString();
   }
-
   function handleSlotClick(event) {
     var slot = event.target;
 
     if (slot.classList.contains('battleship')) {
-      var hits = 0;
       if (slot.style.backgroundColor !== 'orange') {
         slot.style.backgroundColor = 'orange';
-        hits++;
+        battleShipDown();
         var shipSize = parseInt(slot.getAttribute('data-ship-size'));
         var shipId = 'score-ship-' + shipSize;
         var scoreCell = document.getElementById(shipId);
-        if(hits === shipSize)
-        {
-          battleShipDown()
-          hits=0;
-        }
-  
+
         if (scoreCell) {
           var currentScore = parseInt(scoreCell.textContent);
 
-
           if (currentScore > 0) {
-            scoreCell.textContent = currentScore.toString();
+            // Reduce the score by one 
+            scoreCell.textContent = (currentScore - 1).toString();
 
+            if (currentScore === 1) {
+              // All slots of the ship have been hit
               scoreCell.parentNode.classList.add('score-zero');
-  
-              // Reduce the score by one
-              var score = parseInt(scoreCell.textContent);
-              scoreCell.textContent = (score - 1).toString();
 
               // Check if all ships have been sunk
               var allShipsSunk = checkAllShipsSunk();
-              
-            
+              if (allShipsSunk) {
+                // Game over, display a message or perform any other actions
+                console.log('All ships sunk. Game over!');
+
+                // Add animation and sound here
+                slot.classList.add('enlarged');
+                playSound();
+
+                // Remove the 'enlarged' class after the animation has completed
+                slot.addEventListener('animationend', function() {
+                  slot.classList.remove('enlarged');
+                });
+              }
+            }
           }
         }
       }
-    }
-    else if (!slot.classList.contains('clicked')) {
+    } else if (!slot.classList.contains('clicked')) {
       slot.style.backgroundColor = 'blue';
       slot.classList.add('clicked');
     }
