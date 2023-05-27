@@ -39,21 +39,33 @@ function Main() {
     if (slot.classList.contains('battleship')) {
       if (slot.style.backgroundColor !== 'orange') {
         slot.style.backgroundColor = 'orange';
-        battleShipDown();
-        var shipSize = parseInt(slot.getAttribute('data-ship-size'));
+/* `var shipSize = parseInt(slot.getAttribute('data-ship-size'));` is getting the value of the
+`data-ship-size` attribute of the clicked slot and converting it to an integer using `parseInt()`.
+This value is used to determine the size of the battleship that was hit, which is then used to
+update the score and check if the ship has been sunk. */
+        var shipSize = parseInt(slot.getAttribute('data-value'));
         var shipId = 'score-ship-' + shipSize;
         var scoreCell = document.getElementById(shipId);
-
+          battleShipHit();
+          shipSize--;
+        if(shipSize===0)
+        {
+          battleShipDown(); 
+        }
+      
         if (scoreCell) {
           var currentScore = parseInt(scoreCell.textContent);
-
+  
           if (currentScore > 0) {
             // Reduce the score by one 
             scoreCell.textContent = (currentScore - 1).toString();
-
+  
             if (currentScore === 1) {
               // All slots of the ship have been hit
               scoreCell.parentNode.classList.add('score-zero');
+  
+              // Handle the ship being sunk
+              handleShipSunk(shipSize);
 
               // Check if all ships have been sunk
               var allShipsSunk = checkAllShipsSunk();
