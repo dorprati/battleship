@@ -27,18 +27,22 @@ function generateGameTable(boardSize) {
   
     for (var i = 0; i < ship2Count; i++) {
       battleshipLengths.push(2);
+      
     }
   
     for (var i = 0; i < ship3Count; i++) {
       battleshipLengths.push(3);
+      
     }
   
     for (var i = 0; i < ship4Count; i++) {
       battleshipLengths.push(4);
+      
     }
   
     for (var i = 0; i < ship5Count; i++) {
       battleshipLengths.push(5);
+      
     }
   
     var directions = ['horizontal', 'vertical'];
@@ -129,7 +133,16 @@ function generateGameTable(boardSize) {
     audio.play();
   }
   
-  function battleShipDown() {
+
+  function battleShipHit() {
+ 
+    alert(`ship hit!`);
+
+  }
+
+  function battleShipDown() 
+  {
+    alert(`ship down!`);
     displayBoomMessage();
   }
 
@@ -137,3 +150,5 @@ function generateGameTable(boardSize) {
     var table = document.getElementById("myTable");
     table.style.display = "table";
   }
+
+  
