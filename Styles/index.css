@@ -32,12 +32,13 @@ form {
 
 .score-table {
   grid-column: 2;
-  margin-top: 10px;
+  margin-top: -15em;
+  margin-right: 2em;
 }
 
 .score-table table {
   width: 100%;
-  border-collapse: collapse;
+  
 }
 
 .score-table th,
@@ -67,9 +68,6 @@ td {
   cursor: pointer;
 }
 
-.clicked {
-  background-color: blue;
-}
 
 table {
   grid-column: 2;
@@ -134,3 +132,18 @@ button {
 }
 
 
+.slot {
+  width: 40px;
+  height: 40px;
+  background-color: lightblue;
+  border: 1px solid gray;
+  cursor: pointer;
+}
+
+table {
+  border-collapse: collapse;
+}
+th, td {
+  padding: 5px;
+  border: 1px solid black;
+}
