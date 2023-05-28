@@ -1,76 +1,110 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Battleship</title>
-    <script type="" src="/Scripts/function.js"></script>
-    <script src="/Scripts/index.js" defer></script>
-    <link rel="stylesheet" href="/Styles/styles.css">
+  <title>Battleship Game</title>
+  <style>
+    /* CSS styles for the game board and score table */
+    .game-container {
+      display: grid;
+      grid-template-columns: repeat(var(--board-size), 1fr); /* Create grid columns based on board size */
+      grid-template-rows: repeat(var(--board-size), 1fr); /* Create grid rows based on board size */
+      max-width: 600px; /* Set the maximum width of the game board */
+      margin: 0 auto; /* Center the game board horizontally */
+    }
 
+    .slot {
+      background-color: #eaeaea;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+
+    .hit {
+      background-color: red;
+    }
+    .sunk {
+      background-color: gray;
+    }
+    .score-table {
+      display: flex;
+      flex-wrap: wrap;
+      max-width: 600px;
+    }
+
+    .slot {
+      width: 40px;
+      height: 40px;
+      background-color: lightblue;
+      border: 1px solid gray;
+      cursor: pointer;
+    }
+  
+    table {
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 5px;
+      border: 1px solid black;
+    }
+  </style>
 </head>
-
 <body>
-    <h1>Battleship Game</h1>
-    <form id="game-form">
-        <label for="board-size">Select board size:</label>
-        <select id="board-size">
-          <option value="choice" selected disabled>Choice</option>
-          <option value="10">10x10</option>
-          <option value="11">11x11</option>
-          <option value="12">12x12</option>
-          <option value="13">13x13</option>
-          <option value="14">14x14</option>
-          <option value="15">15x15</option>
-        </select>
-        <br><br>
-        <label for="ship-2">Number of 2-cell ships:</label>
-        <input type="number" data-value="2" id="ship-2" min="1" max="10">
-        <br><br>
-        <label for="ship-3">Number of 3-cell ships:</label>
-        <input type="number" data-value="3" id="ship-3" min="1" max="10">
-        <br><br>
-        <label for="ship-4">Number of 4-cell ships:</label>
-        <input type="number" data-value="4" id="ship-4" min="1" max="10">
-        <br><br>
-        <label for="ship-5">Number of 5-cell ships:</label>
-        <input type="number" data-value="5" id="ship-5" min="1" max="10">
-        <br><br>
-        <button type="submit">Start Game</button>
-      </form>
-      <div class="score-table">
-        <table id="myTable" style="display: none;">
-          <tr>
-            <th>Ship</th>
-            <th>Score</th>
-          </tr>
-          <tr>
-            <td id="score-ship-2">ship-2</td>
-            <td>0</td>
-          </tr>
-          <tr>
-            <td id="score-ship-3">ship-3</td>
-            <td>0</td>
-          </tr>
-          <tr>
-            <td id="score-ship-4">ship-4</td>
-            <td>0</td>
-          </tr>
-          <tr>
-            <td id="score-ship-5">ship-5</td>
-            <td>0</td>
-          </tr>
-        </table>
-      </div>
-      <div id="output">
-        <img src="images/OIP.png" id="animation" alt="Animated Image"  >
-      </div>
-      <table id="game-table"></table>
-      <audio id="audio" src="sounds/explosion.wav"></audio>
-
+  <h1>Battleship Game</h1>
+  
+  <form id="game-form">
+    <label for="board-size">Board Size:</label>
+    <input type="number" id="board-size" min="10" max="15" value="10" required>
+    <br>
+    <label for="ship-2">Ship Size 2:</label>
+    <input type="number" id="ship-2" min="0" max="10" value="1" required>
+    <br>
+    <label for="ship-3">Ship Size 3:</label>
+    <input type="number" id="ship-3" min="0" max="10" value="1" required>
+    <br>
+    <label for="ship-4">Ship Size 4:</label>
+    <input type="number" id="ship-4" min="0" max="10" value="1" required>
+    <br>
+    <label for="ship-5">Ship Size 5:</label>
+    <input type="number" id="ship-5" min="0" max="10" value="1" required>
+    <br>
+    <button type="submit">Start Game</button>
+  </form>
+  <br>
+  <div id="game-container" class="game-container"></div>
+    <br>
+  <div class="score-table">
+    <table>
+      <caption>Score Table</caption>
+      <thead>
+        <tr>
+          <th>Ship Size</th>
+          <th>Hits</th>
+          <th>Sunks</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2</td>
+          <td id="score-2">0</td>
+          <td id="sunk-2">0</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td id="score-3">0</td>
+          <td id="sunk-3">0</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td id="score-4">0</td>
+          <td id="sunk-4">0</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td id="score-5">0</td>
+          <td id="sunk-5">0</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <script src="Scripts/index.js"></script>
 </body>
-
-
 </html>
