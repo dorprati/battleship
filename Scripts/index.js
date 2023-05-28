@@ -17,6 +17,9 @@ function startGame(event) {
   showTable();
   generateGameTable(boardSize);
   generateBattleships(boardSize, ship2Count, ship3Count, ship4Count, ship5Count);
+  // Show the score table
+  var scoreTable = document.querySelector('.score-table');
+  scoreTable.style.display = 'block';
 }
 
 function showTable() {
