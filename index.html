@@ -6,13 +6,15 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Battleship Game</title>
+  <script type="" src="/Scripts/function.js"></script>
   <script src="Scripts/index.js" defer></script>
   <link rel="stylesheet" href="/Styles/index.css">
 </head>
 
 <body>
-  <h1>Battleship Game</h1>
+  <h1 class="h1">Battleship Game</h1>
 
+  <div id="toGo">
   <form id="game-form">
     <label for="board-size">Board Size:</label>
     <input type="number" id="board-size" min="10" max="15" required>
@@ -31,6 +33,7 @@
     <br>
     <button type="submit">Start Game</button>
   </form>
+</div>
   <br>
   <br>
   <div class="score-table" style="display: none;">
