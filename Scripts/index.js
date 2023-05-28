@@ -204,6 +204,7 @@ function checkShipSunk(shipSize) {
     sunkCell.textContent = parseInt(sunkCell.textContent) + 1;
     scoreCell.textContent = 0;
     alert('Ship of size ' + shipSize + ' has been sunk!');
+    displayBoomMessage();
   }
 }
 
@@ -248,6 +249,22 @@ function restartGame() {
     scoreCells[i].textContent = '0';
     scoreCells[i].parentNode.classList.remove('score-zero');
   }
+
+  
 }
 
 Main();
+function displayBoomMessage() {
+  playSound();
+  var outputDiv = document.getElementById('output');
+  var animationImg = document.getElementById('animation');
+  animationImg.classList.add('enlarged');
+
+  setTimeout(function () {
+    animationImg.classList.remove('enlarged');
+  }, 2000);
+}
+function playSound() {
+    var audio = document.getElementById('audio');
+    audio.play();
+  }
