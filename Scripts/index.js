@@ -1,3 +1,4 @@
+
 function Main() {
   document.addEventListener('DOMContentLoaded', function () {
     var gameForm = document.getElementById('game-form');
@@ -8,20 +9,11 @@ function Main() {
 function startGame(event) {
   event.preventDefault();
   var boardSize = parseInt(document.getElementById('board-size').value);
-  var ship2Count = parseInt(document.getElementById('ship-2').value);
-  var ship3Count = parseInt(document.getElementById('ship-3').value);
-  var ship4Count = parseInt(document.getElementById('ship-4').value);
-  var ship5Count = parseInt(document.getElementById('ship-5').value);
-  if (
-    isNaN(boardSize) ||
-    isNaN(ship2Count) ||
-    isNaN(ship3Count) ||
-    isNaN(ship4Count) ||
-    isNaN(ship5Count)
-  ) {
-    alert('Please select all the required options');
-    return;
-  }
+  ship2Count = parseInt(document.getElementById('ship-2').value); // Assign values to the ship count variables
+  ship3Count = parseInt(document.getElementById('ship-3').value);
+  ship4Count = parseInt(document.getElementById('ship-4').value);
+  ship5Count = parseInt(document.getElementById('ship-5').value);
+
   showTable();
   generateGameTable(boardSize);
   generateBattleships(boardSize, ship2Count, ship3Count, ship4Count, ship5Count);
@@ -29,16 +21,19 @@ function startGame(event) {
 
 function showTable() {
   var gameTable = document.getElementById('game-container');
-  gameTable.style.display = 'flex';
-  gameTable.style.flexWrap = 'wrap';
-  gameTable.innerHTML = '';
+  gameTable.style.display = 'grid';
+  gameTable.style.gridTemplateColumns = 'repeat(var(--board-size), 1fr)';
+  gameTable.classList.add('game-table');
 }
 
 function generateGameTable(boardSize) {
   var gameContainer = document.getElementById('game-container');
   gameContainer.style.setProperty('--board-size', boardSize);
-  var slotCount = boardSize * boardSize;
-  for (var i = 0; i < slotCount; i++) {
+
+  // Clear the game container
+  gameContainer.innerHTML = '';
+
+  for (var i = 0; i < boardSize * boardSize; i++) {
     var slot = document.createElement('div');
     slot.className = 'slot';
     slot.addEventListener('click', handleSlotClick);
@@ -65,23 +60,110 @@ function generateBattleships(boardSize, ship2Count, ship3Count, ship4Count, ship
 
   for (var i = 0; i < shipSizes.length; i++) {
     var shipSize = shipSizes[i];
-    var randomIndex = Math.floor(Math.random() * slots.length);
     var shipSlots = [];
+    var validPlacement = false;
 
-    if (randomIndex + shipSize <= slots.length) {
-      for (var j = 0; j < shipSize; j++) {
-        shipSlots.push(slots[randomIndex + j]);
-      }
-    } else {
-      for (var j = 0; j < shipSize; j++) {
-        shipSlots.push(slots[randomIndex - j]);
+    while (!validPlacement) {
+      var randomIndex = Math.floor(Math.random() * slots.length);
+      var orientation = Math.random() < 0.5 ? 'horizontal' : 'vertical';
+
+      if (orientation === 'horizontal') {
+        var row = Math.floor(randomIndex / boardSize);
+        var startCol = Math.floor(randomIndex % boardSize);
+        var endCol = startCol + shipSize;
+
+        if (endCol <= boardSize) {
+          var validRange = true;
+          var hasSeparation = true;
+          for (var j = startCol; j < endCol; j++) {
+            var currentIndex = row * boardSize + j;
+            var slot = slots[currentIndex];
+            if (!slot || slot.classList.contains('battleship')) {
+              validRange = false;
+              break;
+            }
+            // Check separation with other ships
+            for (var k = row - 1; k <= row + 1; k++) {
+              for (var l = j - 1; l <= j + 1; l++) {
+                if (k >= 0 && k < boardSize && l >= 0 && l < boardSize) {
+                  var separationIndex = k * boardSize + l;
+                  var separationSlot = slots[separationIndex];
+                  if (separationSlot && separationSlot.classList.contains('battleship')) {
+                    hasSeparation = false;
+                    break;
+                  }
+                }
+              }
+              if (!hasSeparation) {
+                break;
+              }
+            }
+            if (!hasSeparation) {
+              break;
+            }
+          }
+
+          if (validRange && hasSeparation) {
+            validPlacement = true;
+            for (var j = startCol; j < endCol; j++) {
+              var currentIndex = row * boardSize + j;
+              shipSlots.push(slots[currentIndex]);
+            }
+          }
+        }
+      } else if (orientation === 'vertical') {
+        var col = randomIndex % boardSize;
+        var startRow = Math.floor(randomIndex / boardSize);
+        var endRow = startRow + shipSize;
+
+        if (endRow <= boardSize) {
+          var validRange = true;
+          var hasSeparation = true;
+          for (var j = startRow; j < endRow; j++) {
+            var currentIndex = j * boardSize + col;
+            var slot = slots[currentIndex];
+            if (!slot || slot.classList.contains('battleship')) {
+              validRange = false;
+              break;
+            }
+            // Check separation with other ships
+            for (var k = j - 1; k <= j + 1; k++) {
+              for (var l = col - 1; l <= col + 1; l++) {
+                if (k >= 0 && k < boardSize && l >= 0 && l < boardSize) {
+                  var separationIndex = k * boardSize + l;
+                  var separationSlot = slots[separationIndex];
+                  if (separationSlot && separationSlot.classList.contains('battleship')) {
+                    hasSeparation = false;
+                    break;
+                  }
+                }
+              }
+              if (!hasSeparation) {
+                break;
+              }
+            }
+            if (!hasSeparation) {
+              break;
+            }
+          }
+
+          if (validRange && hasSeparation) {
+            validPlacement = true;
+            for (var j = startRow; j < endRow; j++) {
+              var currentIndex = j * boardSize + col;
+              shipSlots.push(slots[currentIndex]);
+            }
+          }
+        }
       }
     }
 
-    shipSlots.forEach(function (slot) {
-      slot.classList.add('battleship');
-      slot.setAttribute('data-ship-size', shipSize);
-    });
+    if (shipSlots.length > 0) {
+      shipSlots.forEach(function (slot) {
+        slot.classList.add('battleship');
+        slot.setAttribute('data-ship-size', shipSize);
+      });
+    }
   }
 }
 
@@ -96,10 +178,9 @@ function handleSlotClick(event) {
       updateScore(shipSize);
       checkShipSunk(shipSize);
       var gameOver = checkAllShipsSunk(ship2Count, ship3Count, ship4Count, ship5Count);
-      if(gameOver)
-      {
+      if (gameOver) {
         alert('Game Over');
-        restartGame()
+        restartGame();
       }
     }
   } else if (!slot.classList.contains('clicked')) {
@@ -138,25 +219,22 @@ function updateScoreTable(ship2Count, ship3Count, ship4Count, ship5Count) {
   sunkCells[2].textContent = '0';
   sunkCells[3].textContent = '0';
 }
+
 function checkAllShipsSunk(ship2Count, ship3Count, ship4Count, ship5Count) {
-  var sumAllShips = parseInt(ship2Count + ship3Count + ship4Count + ship5Count);
+  var sumAllShips = ship2Count + ship3Count + ship4Count + ship5Count;
   var sunkCells = document.querySelectorAll('.score-table table td:nth-child(3)');
+
   for (var i = 0; i < sunkCells.length; i++) {
     var currentScore = parseInt(sunkCells[i].textContent);
-    alert(currentScore)
-    alert(sumAllShips)
-    if (currentScore != sumAllShips) {
+
+    if (currentScore !== sumAllShips) {
       // At least one ship is not sunk
       return false;
     }
-    if(currentScore === sumAllShips)
-    {
-        // All ships are sunk
-  
-  return true;
-    }
-
   }
+
+  // All ships are sunk
+  return true;
 }
 
 function restartGame() {
@@ -164,12 +242,12 @@ function restartGame() {
   var gameTable = document.getElementById('game-table');
   gameTable.innerHTML = '';
 
-    // Reset the score table
-    var scoreCells = document.querySelectorAll('.score-table table td:nth-child(2)');
-    for (var i = 0; i < scoreCells.length; i++) {
-      scoreCells[i].textContent = '0';
-      scoreCells[i].parentNode.classList.remove('score-zero');
-    }
+  // Reset the score table
+  var scoreCells = document.querySelectorAll('.score-table table td:nth-child(2)');
+  for (var i = 0; i < scoreCells.length; i++) {
+    scoreCells[i].textContent = '0';
+    scoreCells[i].parentNode.classList.remove('score-zero');
+  }
 }
 
 Main();

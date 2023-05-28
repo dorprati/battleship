@@ -1,27 +1,33 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Battleship Game</title>
+  <script src="Scripts/index.js" defer></script>
   <link rel="stylesheet" href="/Styles/index.css">
 </head>
+
 <body>
   <h1>Battleship Game</h1>
-  
+
   <form id="game-form">
     <label for="board-size">Board Size:</label>
-    <input type="number" id="board-size" min="10" max="15"  required>
+    <input type="number" id="board-size" min="10" max="15" required>
     <br>
     <label for="ship-2">Ship Size 2:</label>
-    <input type="number" id="ship-2" min="0" max="10"  required>
+    <input type="number" id="ship-2" min="1" max="10" required>
     <br>
     <label for="ship-3">Ship Size 3:</label>
-    <input type="number" id="ship-3" min="0" max="10"  required>
+    <input type="number" id="ship-3" min="1" max="10" required>
     <br>
     <label for="ship-4">Ship Size 4:</label>
-    <input type="number" id="ship-4" min="0" max="10"  required>
+    <input type="number" id="ship-4" min="1" max="10" required>
     <br>
     <label for="ship-5">Ship Size 5:</label>
-    <input type="number" id="ship-5" min="0" max="10"  required>
+    <input type="number" id="ship-5" min="1" max="10" required>
     <br>
     <button type="submit">Start Game</button>
   </form>
@@ -56,9 +62,11 @@
           <td id="score-5">0</td>
           <td id="sunk-5">0</td>
         </tr>
-      </table>
-    </div>
+    </table>
+  </div>
+  <div class="game-wrapper">
     <div id="game-container" class="game-container"></div>
-  <script src="Scripts/index.js"></script>
+  </div>
 </body>
+
 </html>

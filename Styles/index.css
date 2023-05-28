@@ -38,7 +38,7 @@ form {
 
 .score-table table {
   width: 100%;
-  
+
 }
 
 .score-table th,
@@ -109,19 +109,24 @@ button {
 }
 
 #animation {
-  width: 0px; /* Initial width of the image */
-  transition: width 1s; /* Transition property for smooth animation */
+  width: 0px;
+  /* Initial width of the image */
+  transition: width 1s;
+  /* Transition property for smooth animation */
   opacity: 1;
 }
 
 @keyframes growAnimation {
   0% {
-    width: 0px; /* Initial width of the image */
+    width: 0px;
+    /* Initial width of the image */
     opacity: 1;
   }
+
   100% {
     width: 200px;
-    opacity: 0; /* Final width of the image */
+    opacity: 0;
+    /* Final width of the image */
   }
 }
 
@@ -133,6 +138,7 @@ button {
 
 
 .slot {
+
   width: 40px;
   height: 40px;
   background-color: lightblue;
@@ -143,7 +149,9 @@ button {
 table {
   border-collapse: collapse;
 }
-th, td {
+
+th,
+td {
   padding: 5px;
   border: 1px solid black;
 }
