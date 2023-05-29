@@ -144,7 +144,9 @@ function handleSlotClick(event) {
   if (slot.classList.contains('battleship')) {
     if (!slot.classList.contains('hit')) {
       slot.classList.add('hit');
-      slot.style.backgroundColor = 'red';
+      slot.style.backgroundImage = 'url(/images/giphyBlow.gif)';
+      slot.style.backgroundSize = '100% 100%'
+      slot.style.backgroundRepeat = 'no-repeat';
       var shipSize = parseInt(slot.getAttribute('data-ship-size'));
       updateScore(shipSize);
       checkShipSunk(shipSize);
@@ -156,7 +158,8 @@ function handleSlotClick(event) {
     }
   } else if (!slot.classList.contains('clicked')) {
     slot.classList.add('clicked');
-    slot.style.backgroundColor = 'gray';
+    slot.style.backgroundImage = 'url(/images/giphy.gif)'
+    slot.style.backgroundSize = '100%'
     slot.classList.toggle('occupied');
   }
 }
