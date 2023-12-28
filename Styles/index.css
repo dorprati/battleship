@@ -21,6 +21,7 @@ body {
 
 .score-table{
 grid-area:score-table ;
+margin-bottom: 100px;
 }
 
 #toGo{
@@ -44,7 +45,7 @@ form {
 
 .score-table {
   grid-column: 2;
-  margin: 0 auto;
+  margin-bottom: 200px;
   width: fit-content;
 }
 

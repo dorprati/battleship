@@ -1,16 +1,3 @@
-function generateGameTable(boardSize) {
-  var gameContainer = document.getElementById('game-container');
-  gameContainer.style.setProperty('--board-size', boardSize);
-  gameContainer.innerHTML = '';
-  for (var i = 0; i < boardSize * boardSize; i++) {
-    var slot = document.createElement('div');
-    slot.className = 'slot';
-    slot.addEventListener('click', handleSlotClick);
-    gameContainer.appendChild(slot);
-  }
-}
-
-
 function generateBattleships(boardSize, ship2Count, ship3Count, ship4Count, ship5Count) {
   var slots = document.getElementsByClassName('slot');
   var shipSizes = [];
@@ -68,9 +55,7 @@ function generateBattleships(boardSize, ship2Count, ship3Count, ship4Count, ship
                 break;
               }
             }
-            if (!hasSeparation) {
-              break;
-            }
+            
           }
 
           if (validRange && hasSeparation) {
@@ -112,9 +97,7 @@ function generateBattleships(boardSize, ship2Count, ship3Count, ship4Count, ship
                 break;
               }
             }
-            if (!hasSeparation) {
-              break;
-            }
+           
           }
 
           if (validRange && hasSeparation) {
